@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">FormCollection</string>
+    <string name="create_form">创建表单</string>
+    <string name="fill_form">填写表单</string>
+    <string name="stats_form">统计表单</string>
+    <string name="myForm">我的表单</string>
 </resources>
