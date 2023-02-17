@@ -25,6 +25,29 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_vertical" />
+
     </LinearLayout>
+
+
+
+    <Button
+        android:id="@+id/stats_form"
+        android:layout_width="198dp"
+        android:layout_height="72dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/round_button"
+        android:text="@string/stats_form"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/myForm"
+        android:layout_marginTop="40dp"
+        android:layout_width="198dp"
+        android:layout_height="72dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="18sp"
+        android:background="@drawable/round_button"
+        android:text="@string/myForm" />
 
 </LinearLayout>
