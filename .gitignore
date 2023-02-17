@@ -15,3 +15,6 @@
 local.properties
 /.idea
 /bulid.gradle
+/app/build.gradle
+.idea
+
