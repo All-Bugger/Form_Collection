@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="表单名称："
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/form_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:listSelector="#320000FF"
+        android:cacheColorHint="#00000000"/>
+
+    <Button
+        android:id="@+id/add_topic"
+        android:layout_width="198dp"
+        android:layout_height="72dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_button"
+        android:text="@string/add_topic"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_marginTop="10dp"
+        android:layout_width="198dp"
+        android:layout_height="72dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="18sp"
+        android:background="@drawable/round_button"
+        android:text="@string/save" />
+
+</LinearLayout>
