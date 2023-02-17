@@ -4,4 +4,6 @@
     <string name="fill_form">填写表单</string>
     <string name="stats_form">统计表单</string>
     <string name="myForm">我的表单</string>
+    <string name="add_topic">添加题目</string>
+    <string name="save">保存</string>
 </resources>

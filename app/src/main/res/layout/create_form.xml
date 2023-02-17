@@ -28,26 +28,31 @@
 
     </LinearLayout>
 
-
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:listSelector="#320000FF"
+        android:cacheColorHint="#00000000"/>
 
     <Button
-        android:id="@+id/stats_form"
+        android:id="@+id/add_topic"
         android:layout_width="198dp"
         android:layout_height="72dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/round_button"
-        android:text="@string/stats_form"
+        android:text="@string/add_topic"
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/myForm"
-        android:layout_marginTop="40dp"
+        android:id="@+id/save"
+        android:layout_marginTop="10dp"
         android:layout_width="198dp"
         android:layout_height="72dp"
         android:layout_gravity="center_horizontal"
         android:textSize="18sp"
         android:background="@drawable/round_button"
-        android:text="@string/myForm" />
+        android:text="@string/save" />
 
 </LinearLayout>
