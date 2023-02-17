@@ -37,3 +37,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 }
+
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
