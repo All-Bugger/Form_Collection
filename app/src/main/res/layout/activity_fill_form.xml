@@ -15,10 +15,17 @@
         android:textColor="@color/white"
         android:textSize="30sp" />
 
-    <ListView
-        android:id="@+id/form_content"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:scrollbars="none"
+        android:layout_weight="1">
+        <LinearLayout
+            android:id="@+id/form_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+    </ScrollView>
 
 
 </LinearLayout>
