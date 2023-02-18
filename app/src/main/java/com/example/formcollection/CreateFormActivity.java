@@ -40,9 +40,8 @@ public class CreateFormActivity extends AppCompatActivity {
 
     //随机生成6个数字长度的表单id
     public String takeFormId(){
-        int id_int = 0;
         Random r = new Random();
-        id_int = r.nextInt(899999)+100000;
+        int id_int = r.nextInt(899999)+100000;
         return String.valueOf(id_int);
     }
 
