@@ -11,9 +11,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="表单名称：" />
+            android:text="@string/form_name" />
         <TextView
-            android:id="@+id/form_name"
+            android:id="@+id/from_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -25,7 +25,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="表单ID：" />
+            android:text="@string/form_id" />
         <TextView
             android:id="@+id/form_id"
             android:layout_width="match_parent"
