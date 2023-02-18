@@ -224,6 +224,9 @@ public class FillFormActivity extends AppCompatActivity {
                     outputStream.write(jsonObject.toString().getBytes(StandardCharsets.UTF_8));
                 } catch (IOException e) {
                     e.printStackTrace();
+                }finally {
+                    Toast.makeText(getApplication(), R.string.submit_success, Toast.LENGTH_SHORT).show();
+                    finish();
                 }
 
             } else {

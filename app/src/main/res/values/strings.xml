@@ -10,4 +10,5 @@
     <string name="uncompleted_err">您的答卷未完成哦！请完成后提交！</string>
     <string name="form_name">表单名称：</string>
     <string name="form_id">表单ID：</string>
+    <string name="submit_success">提交成功！</string>
 </resources>
