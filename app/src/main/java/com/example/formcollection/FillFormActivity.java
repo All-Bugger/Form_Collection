@@ -31,7 +31,7 @@ public class FillFormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fill_form);
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        form = (Form)savedInstanceState.getSerializable("form");
+        form = (Form)getIntent().getParcelableExtra("form");
         initData();
         initView();
     }
@@ -65,7 +65,7 @@ public class FillFormActivity extends AppCompatActivity {
         que_list = form.getQuestions();
         LinearLayout form_layout = findViewById(R.id.form_content);          //读取添加问题的布局
         TextView form_title = findViewById(R.id.from_title);
-        form_title.setText(form_title.getText());                    //设置表格标题
+        form_title.setText(form.getTitle());                    //设置表格标题
         //加载问题
         for(int i = 0; i < que_list.size(); i++){
             View que_view = inflater.inflate(R.layout.question, null);

@@ -15,7 +15,7 @@ public class Question implements Parcelable {
     //选项
     private ArrayList<Answer> answers = new ArrayList<>();
     //是否回答
-    private int questionState;
+    private int questionState = 0;
 
     protected Question(Parcel in) {
         questionId = in.readString();
