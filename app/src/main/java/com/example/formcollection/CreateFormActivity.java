@@ -1,5 +1,6 @@
 package com.example.formcollection;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,17 +19,7 @@ import java.util.Random;
 
 public class CreateFormActivity extends AppCompatActivity {
 
-    private List<Question> questions = new ArrayList<>();
-
     private Form form = new Form();
-
-    public List<Question> getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
-    }
 
     public Form getForm() {
         return form;
@@ -39,30 +30,52 @@ public class CreateFormActivity extends AppCompatActivity {
     }
 
     //随机生成6个数字长度的表单id
-    public String takeFormId(){
+    public String takeFormId() {
         Random r = new Random();
-        int id_int = r.nextInt(899999)+100000;
+        int id_int = r.nextInt(899999) + 100000;
         return String.valueOf(id_int);
+    }
+
+    public void createJSON() {
+
+    }
+
+    public void saveJSON() {
+
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_form);
-        QuestionAdapter questionAdapter = new QuestionAdapter(CreateFormActivity.this,R.layout.create_form_list,questions);
+        Form form = (Form) getIntent().getParcelableExtra("form");
+        QuestionAdapter questionAdapter = new QuestionAdapter(CreateFormActivity.this, R.layout.create_form_list, form.getQuestions());
         EditText form_name = (EditText) findViewById(R.id.form_name);
         ListView create_list_view = (ListView) findViewById(R.id.create_list_view);
         Button add_topic_btn = (Button) findViewById(R.id.add_topic);
         Button save = (Button) findViewById(R.id.save);
-
         create_list_view.setAdapter(questionAdapter);
+        form.setFormId(takeFormId());
+        form.setTitle(form_name.toString());
 
+        //点击跳转添加题目界面
+        add_topic_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CreateFormActivity.this, AppCompatActivity.class);
+                intent.putExtra("form", form);//向添加界面传递form参数，来确保返回页面时能实现动态更新
+                startActivity(intent);
+            }
+        });
 
         //点击保存按钮跳出弹窗显示表单id，并返回主页面
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                createJSON();
+                saveJSON();
+                Intent intent = new Intent(CreateFormActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }
