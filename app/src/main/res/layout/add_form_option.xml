@@ -29,10 +29,30 @@
 
     </LinearLayout>
 
+    <RadioGroup
+        android:id="@+id/radio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+
+        <RadioButton
+            android:id="@+id/r1"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="单选题"/>
+        <RadioButton
+            android:id="@+id/r2"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="多选题"/>
+
+    </RadioGroup>
+
     <LinearLayout
         android:id="@+id/option_in"
         android:layout_width="350dp"
-        android:layout_height="300dp"
+        android:layout_height="270dp"
         android:orientation="vertical"
         android:layout_gravity="center_horizontal">
 

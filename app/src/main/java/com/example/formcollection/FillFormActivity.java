@@ -38,7 +38,7 @@ public class FillFormActivity extends AppCompatActivity {
         form_title.setText(form.getTitle());                    //设置表格标题
 
         questions_list = form.getQuestions();
-        for(int i = 0; i < questions_list.size(); i++){
+        for (int i = 0; i < questions_list.size(); i++) {
 
         }
     }
