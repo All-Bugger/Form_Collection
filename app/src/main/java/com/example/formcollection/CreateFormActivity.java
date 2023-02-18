@@ -117,62 +117,70 @@ public class CreateFormActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    EditText form_name = (EditText) findViewById(R.id.form_name);
-                    finalForm1.setTitle(form_name.getText().toString());
-                    jsonObject.put("name", finalForm1.getTitle());
-                    jsonObject.put("id", finalForm1.getFormId());
-                    jsonObject.put("type", "0");
-                    JSONArray FORMS = new JSONArray();
+                if(finalForm1.getQuestions().size()!=0){
+                    try {
+                        EditText form_name = (EditText) findViewById(R.id.form_name);
+                        finalForm1.setTitle(form_name.getText().toString());
+                        jsonObject.put("name", finalForm1.getTitle());
+                        jsonObject.put("id", finalForm1.getFormId());
+                        jsonObject.put("type", "0");
+                        JSONArray FORMS = new JSONArray();
 
-                    List<Question> questions = finalForm1.getQuestions();
-                    for (int i = 0; i < questions.size(); i++) {
-                        JSONObject FORM = new JSONObject();
-                        FORM.put("name", questions.get(i).getQuestionContent());
-                        FORM.put("id", questions.get(i).getQuestionId());
-                        FORM.put("type", questions.get(i).getType());
-                        ArrayList<Answer> answers = questions.get(i).getAnswers();
-                        JSONArray jsonArray = new JSONArray();
-                        jsonArray.add(answers.get(0).getAnswerContent());
-                        jsonArray.add(answers.get(1).getAnswerContent());
-                        jsonArray.add(answers.get(2).getAnswerContent());
-                        jsonArray.add(answers.get(3).getAnswerContent());
-                        FORM.put("options",jsonArray);
-                        FORMS.add(FORM);
+                        List<Question> questions = finalForm1.getQuestions();
+                        for (int i = 0; i < questions.size(); i++) {
+                            JSONObject FORM = new JSONObject();
+                            FORM.put("name", questions.get(i).getQuestionContent());
+                            FORM.put("id", questions.get(i).getQuestionId());
+                            FORM.put("type", questions.get(i).getType());
+                            ArrayList<Answer> answers = questions.get(i).getAnswers();
+                            JSONArray jsonArray = new JSONArray();
+                            jsonArray.add(answers.get(0).getAnswerContent());
+                            jsonArray.add(answers.get(1).getAnswerContent());
+                            jsonArray.add(answers.get(2).getAnswerContent());
+                            jsonArray.add(answers.get(3).getAnswerContent());
+                            FORM.put("options",jsonArray);
+                            FORMS.add(FORM);
+                        }
+                        jsonObject.put("content",FORMS);
+
+                        //json文件创建
+                        fileName = "/form/" + finalForm1.getFormId() + ".json";
+                        File file = new File(
+                                getApplicationContext().getFilesDir().getAbsolutePath()+ fileName);
+                        if (!file.exists()) {
+                            file.createNewFile();
+                        }
+                        FileOutputStream outputStream = new FileOutputStream(file);
+                        outputStream.write(jsonObject.toString().getBytes(StandardCharsets.UTF_8));
+
+                        //弹窗
+                        AlertDialog alertDialog1 = new AlertDialog.Builder(CreateFormActivity.this)
+                                .setMessage("表格id为：" + finalForm1.getFormId() )//内容
+                                .create();
+                        alertDialog1.show();
+                        //弹窗显示三秒
+                        new Thread() {
+                            @Override
+                            public void run() {
+                                super.run();
+                                try {
+                                    Thread.sleep(3000);//休眠3秒
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                Intent intent = new Intent(CreateFormActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                        }.start();
+                    } catch (IOException | JSONException e) {
+                        e.printStackTrace();
                     }
-                    jsonObject.put("content",FORMS);
-
-                    //json文件创建
-                    fileName = "/form/" + finalForm1.getFormId() + ".json";
-                    File file = new File(
-                            getApplicationContext().getFilesDir().getAbsolutePath()+ fileName);
-                    if (!file.exists()) {
-                        file.createNewFile();
-                    }
-                    FileOutputStream outputStream = new FileOutputStream(file);
-                    outputStream.write(jsonObject.toString().getBytes(StandardCharsets.UTF_8));
-
-                    //弹窗
+                }
+                else{
                     AlertDialog alertDialog1 = new AlertDialog.Builder(CreateFormActivity.this)
-                            .setMessage("表格id为：" + finalForm1.getFormId() )//内容
+                            .setMessage("请至少加入一个问题！" )//内容
                             .create();
                     alertDialog1.show();
-                    //弹窗显示三秒
-                    new Thread() {
-                        @Override
-                        public void run() {
-                            super.run();
-                            try {
-                                Thread.sleep(3000);//休眠3秒
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            Intent intent = new Intent(CreateFormActivity.this, MainActivity.class);
-                            startActivity(intent);
-                        }
-                    }.start();
-                } catch (IOException | JSONException e) {
-                    e.printStackTrace();
                 }
             }
         });
