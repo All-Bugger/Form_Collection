@@ -6,4 +6,8 @@
     <string name="myForm">我的表单</string>
     <string name="add_topic">添加题目</string>
     <string name="save">保存</string>
+    <string name="submit">提交</string>
+    <string name="uncompleted_err">您的答卷未完成哦！请完成后提交！</string>
+    <string name="form_name">表单名称：</string>
+    <string name="form_id">表单ID：</string>
 </resources>

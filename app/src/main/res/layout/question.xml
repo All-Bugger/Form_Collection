@@ -12,20 +12,15 @@
         <TextView
             android:id="@+id/question_index"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="1、"/>
+            android:layout_height="match_parent" />
         <TextView
             android:id="@+id/question"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:text="问题"/>
+            android:layout_height="20dp" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="20dp"/>
 </LinearLayout>

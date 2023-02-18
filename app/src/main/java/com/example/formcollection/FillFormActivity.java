@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,11 +21,8 @@ import com.example.formcollection.pojo.Question;
 import java.util.ArrayList;
 
 public class FillFormActivity extends AppCompatActivity {
-    private LinearLayout form_layout;
     private Form form;
-    private ArrayList<Answer> ans_list = new ArrayList<>();
     private ArrayList<Question> que_list = new ArrayList<>();
-    private View que_view;
     private LayoutInflater inflater;
     private ArrayList<View> ans_view_list = new ArrayList<>();
 
@@ -33,6 +31,7 @@ public class FillFormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fill_form);
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        form = (Form)savedInstanceState.getSerializable("form");
         initData();
         initView();
     }
@@ -54,21 +53,31 @@ public class FillFormActivity extends AppCompatActivity {
         answers.add(a4);
         question.setAnswers(answers);
         que_list.add(question);
+        que_list.add(question);
+        que_list.add(question);
+        que_list.add(question);
+        que_list.add(question);
+        que_list.add(question);
+        que_list.add(question);
     }
 
     private void initView() {
-        form_layout = findViewById(R.id.form_content);          //读取添加问题的布局
+        que_list = form.getQuestions();
+        LinearLayout form_layout = findViewById(R.id.form_content);          //读取添加问题的布局
         TextView form_title = findViewById(R.id.from_title);
-        form_title.setText("test");                    //设置表格标题
+        form_title.setText(form_title.getText());                    //设置表格标题
         //加载问题
         for(int i = 0; i < que_list.size(); i++){
-            que_view = inflater.inflate(R.layout.question,null);
+            View que_view = inflater.inflate(R.layout.question, null);
             TextView que_index = que_view.findViewById(R.id.question_index);
             TextView que_content = que_view.findViewById(R.id.question);
-            //设置问题内容
-            que_index.setText(String.valueOf(i+1)+"、");
+            //设置问题序号、内容
+            String index = String.valueOf(i+1)+"、";
+            que_index.setText(index);
             que_content.setText(que_list.get(i).getQuestionContent());
-            ans_list = que_list.get(i).getAnswers();
+            //加载答案列表
+            ArrayList<Answer> ans_list = que_list.get(i).getAnswers();
+            //定义各种所需布局
             LinearLayout ans_layout = que_view.findViewById(R.id.answer);
             View ans_view = inflater.inflate(R.layout.answer,null);
             LinearLayout layout_in_ans = ans_view.findViewById(R.id.answer_layout);
@@ -92,10 +101,15 @@ public class FillFormActivity extends AppCompatActivity {
                     checkBox.setOnClickListener(new answerItemOnClickListener(i));
                 }
             }
+            //将答案添加到问题布局，问题添加到表单布局
             ans_layout.addView(ans_view);
+            form_layout.addView(que_view);
+            //将各个问题答案的View实例加入list，方便读取各问题作答情况
             ans_view_list.add(ans_view);
+            //绑定提交按钮点击事件
+            findViewById(R.id.submit).setOnClickListener(new submitButtonOnClickListener());
         }
-        form_layout.addView(que_view);
+
     }
 
     //设置多选按钮ID
@@ -136,14 +150,12 @@ public class FillFormActivity extends AppCompatActivity {
         return false;
     }
 
+    //回答按钮点击事件
     class answerItemOnClickListener implements View.OnClickListener {
         private int i;
-
-
         public answerItemOnClickListener(int i) {
             this.i = i;
         }
-
         //点击时更新问题状态
         @Override
         public void onClick(View arg0) {
@@ -156,7 +168,28 @@ public class FillFormActivity extends AppCompatActivity {
                 if(isChecked(i)) que_list.get(i).setQuestionState(1);
                 else que_list.get(i).setQuestionState(0);
             }
-            Log.d("eeeeee","is" + que_list.get(i).getQuestionState());
+        }
+    }
+
+    //提交按钮点击事件
+    class submitButtonOnClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+            //判断答卷是否完成
+            boolean isDone = true;
+            for (Question q : que_list) {
+                if(q.getQuestionState()==0){
+                    isDone = false;
+                    break;
+                }
+            }
+            if(isDone){
+                //将答卷写入json
+            } else {
+                //提示答卷未完成
+                Toast.makeText(getApplication(), R.string.uncompleted_err, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
