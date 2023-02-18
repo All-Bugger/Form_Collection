@@ -19,18 +19,10 @@ public class AddOptionActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_form_option);
-        Button add_option_btn = (Button) findViewById(R.id.add_option);
         Button save_option_btn = (Button) findViewById(R.id.save_option);
         Button back_btn = (Button) findViewById(R.id.back);
         ArrayList<EditText> options = new ArrayList<>();
         Form form = getIntent().getParcelableExtra("form");
-
-        add_option_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         save_option_btn.setOnClickListener(new View.OnClickListener() {
             @Override

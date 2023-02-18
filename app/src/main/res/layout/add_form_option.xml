@@ -42,7 +42,6 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/r1"
                 android:layout_width="37dp"
                 android:layout_height="wrap_content" />
             <EditText
@@ -60,7 +59,6 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/r2"
                 android:layout_width="37dp"
                 android:layout_height="wrap_content" />
             <EditText
@@ -72,16 +70,42 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="37dp"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/r3_content"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="37dp"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/r4_content"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical" />
+
+        </LinearLayout>
+
     </LinearLayout>
-    <Button
-        android:id="@+id/add_option"
-        android:layout_width="198dp"
-        android:layout_height="72dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/round_button"
-        android:text="添加选项"
-        android:textSize="18sp" />
+
 
     <Button
         android:id="@+id/save_option"
