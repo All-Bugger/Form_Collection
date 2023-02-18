@@ -57,10 +57,10 @@ public class AddOptionActivity extends AppCompatActivity {
                 EditText r4Con = (EditText) findViewById(R.id.r4_content);
 
                 ArrayList<Answer> arrayList = new ArrayList<>();
-                Answer a1 = new Answer("a", r1Con.toString(), 0);
-                Answer a2 = new Answer("b", r2Con.toString(), 0);
-                Answer a3 = new Answer("c", r3Con.toString(), 0);
-                Answer a4 = new Answer("d", r4Con.toString(), 0);
+                Answer a1 = new Answer("a", r1Con.getText().toString(), 0);
+                Answer a2 = new Answer("b", r2Con.getText().toString(), 0);
+                Answer a3 = new Answer("c", r3Con.getText().toString(), 0);
+                Answer a4 = new Answer("d", r4Con.getText().toString(), 0);
                 arrayList.add(a1);
                 arrayList.add(a2);
                 arrayList.add(a3);
@@ -69,7 +69,7 @@ public class AddOptionActivity extends AppCompatActivity {
                 int i = form.getQuestions().size();
                 Question q = new Question();
                 q.setQuestionId(String.valueOf(i + 1));
-                q.setQuestionContent(topic_name.toString());
+                q.setQuestionContent(topic_name.getText().toString());
                 q.setType(type);
                 q.setQuestionState(0);
                 q.setAnswers(arrayList);

@@ -75,7 +75,7 @@ public class CreateFormActivity extends AppCompatActivity {
         Button save = (Button) findViewById(R.id.save);
 //        create_list_view.setAdapter(questionAdapter);
         form.setFormId(takeFormId());
-        form.setTitle(form_name.toString());
+        form.setTitle(form_name.getText().toString());
 
         //点击跳转添加题目界面
         Form finalForm = form;
