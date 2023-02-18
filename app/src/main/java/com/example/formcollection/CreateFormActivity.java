@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.formcollection.pojo.Answer;
@@ -148,9 +149,25 @@ public class CreateFormActivity extends AppCompatActivity {
                         file.createNewFile();
                     }
                     FileOutputStream outputStream = new FileOutputStream(file);
-                    outputStream.write(jsonObject.toString().getBytes(StandardCharsets.UTF_8));;
-                    Intent intent = new Intent(CreateFormActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    outputStream.write(jsonObject.toString().getBytes(StandardCharsets.UTF_8));
+                    AlertDialog alertDialog1 = new AlertDialog.Builder(CreateFormActivity.this)
+                            .setMessage("表格id为：" + finalForm1.getFormId() )//内容
+                            .create();
+                    alertDialog1.show();
+                    //弹窗显示三秒
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            super.run();
+                            try {
+                                Thread.sleep(3000);//休眠3秒
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            Intent intent = new Intent(CreateFormActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                    }.start();
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
