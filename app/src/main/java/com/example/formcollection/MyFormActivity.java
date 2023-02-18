@@ -2,6 +2,7 @@ package com.example.formcollection;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -37,5 +38,9 @@ public class MyFormActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void loadFormList(){
+        String filePath = Environment.getExternalStorageDirectory().toString()+"";
     }
 }
