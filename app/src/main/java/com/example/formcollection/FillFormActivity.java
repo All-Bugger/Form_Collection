@@ -2,6 +2,7 @@ package com.example.formcollection;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
@@ -21,27 +22,44 @@ import java.util.ArrayList;
 public class FillFormActivity extends AppCompatActivity {
     private LinearLayout form_layout;
     private Form form;
-    private ArrayList<Answer> ans_list;
-    private ArrayList<Question> que_list;
+    private ArrayList<Answer> ans_list = new ArrayList<>();
+    private ArrayList<Question> que_list = new ArrayList<>();
     private View que_view;
     private LayoutInflater inflater;
-    private ArrayList<View> ans_view_list;
+    private ArrayList<View> ans_view_list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fill_form);
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        initView(form);
+        initData();
+        initView();
     }
 
+    private void initData(){
+        Question question = new Question();
+        question.setQuestionId("1");
+        question.setQuestionState(0);
+        question.setType("单选");
+        question.setQuestionContent("请创建题目");
+        Answer a1 = new Answer("a","aaaaaaaaaa",0);
+        Answer a2 = new Answer("b","bbbbbbbbbb",0);
+        Answer a3 = new Answer("c","cccccccccc",0);
+        Answer a4 = new Answer("d","dddddddddd",0);
+        ArrayList<Answer> answers = new ArrayList<>();
+        answers.add(a1);
+        answers.add(a2);
+        answers.add(a3);
+        answers.add(a4);
+        question.setAnswers(answers);
+        que_list.add(question);
+    }
 
-    private void initView(Form form) {
+    private void initView() {
         form_layout = findViewById(R.id.form_content);          //读取添加问题的布局
         TextView form_title = findViewById(R.id.from_title);
-        form_title.setText(form.getTitle());                    //设置表格标题
-
-        que_list = form.getQuestions();
+        form_title.setText("test");                    //设置表格标题
         //加载问题
         for(int i = 0; i < que_list.size(); i++){
             que_view = inflater.inflate(R.layout.question,null);
@@ -51,7 +69,7 @@ public class FillFormActivity extends AppCompatActivity {
             que_index.setText(String.valueOf(i+1)+"、");
             que_content.setText(que_list.get(i).getQuestionContent());
             ans_list = que_list.get(i).getAnswers();
-            LinearLayout ans_layout = findViewById(R.id.answer);
+            LinearLayout ans_layout = que_view.findViewById(R.id.answer);
             View ans_view = inflater.inflate(R.layout.answer,null);
             LinearLayout layout_in_ans = ans_view.findViewById(R.id.answer_layout);
             //加载答案
@@ -62,6 +80,7 @@ public class FillFormActivity extends AppCompatActivity {
                     RadioButton radioButton = new RadioButton(this);
                     radioButton.setText(ans_list.get(j).getAnswerContent());
                     radioGroup.addView(radioButton);
+                    radioButton.setOnClickListener(new answerItemOnClickListener(i));
                 }
                 layout_in_ans.addView(radioGroup);
             }else{
@@ -69,9 +88,10 @@ public class FillFormActivity extends AppCompatActivity {
                     CheckBox checkBox = new CheckBox(this);
                     checkBox.setText(ans_list.get(j).getAnswerContent());
                     setCheckBoxId(checkBox,j);
+                    layout_in_ans.addView(checkBox);
+                    checkBox.setOnClickListener(new answerItemOnClickListener(i));
                 }
             }
-            que_view.setOnClickListener(new answerItemOnClickListener(i));
             ans_layout.addView(ans_view);
             ans_view_list.add(ans_view);
         }
@@ -127,7 +147,7 @@ public class FillFormActivity extends AppCompatActivity {
         //点击时更新问题状态
         @Override
         public void onClick(View arg0) {
-            if(form.getQuestions().get(i).getType().equals("单选")){
+            if(que_list.get(i).getType().equals("单选")){
                 RadioGroup radioGroup = ans_view_list.get(i).findViewById(R.id.radio_group);
                 RadioButton radioButton = ans_view_list.get(i).findViewById(radioGroup.getCheckedRadioButtonId());
                 if(radioButton!=null) que_list.get(i).setQuestionState(1);
@@ -136,6 +156,7 @@ public class FillFormActivity extends AppCompatActivity {
                 if(isChecked(i)) que_list.get(i).setQuestionState(1);
                 else que_list.get(i).setQuestionState(0);
             }
+            Log.d("eeeeee","is" + que_list.get(i).getQuestionState());
         }
     }
 
