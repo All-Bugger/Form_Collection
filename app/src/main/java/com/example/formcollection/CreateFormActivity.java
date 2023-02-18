@@ -10,9 +10,11 @@ import android.widget.ListView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.formcollection.pojo.Answer;
 import com.example.formcollection.pojo.Form;
 import com.example.formcollection.pojo.Question;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -44,7 +46,16 @@ public class CreateFormActivity extends AppCompatActivity {
         question.setQuestionState(0);
         question.setType("1");
         question.setQuestionContent("请创建题目");
-        question.setAnswers(new ArrayList<>());
+        Answer a1 = new Answer("a","aaaaaaaaaa",0);
+        Answer a2 = new Answer("b","bbbbbbbbbb",0);
+        Answer a3 = new Answer("c","cccccccccc",0);
+        Answer a4 = new Answer("d","dddddddddd",0);
+        ArrayList<Answer> answers = new ArrayList<>();
+        answers.add(a1);
+        answers.add(a2);
+        answers.add(a3);
+        answers.add(a4);
+        question.setAnswers(answers);
         questionList.add(question);
     }
 
@@ -73,7 +84,7 @@ public class CreateFormActivity extends AppCompatActivity {
         ListView create_list_view = (ListView) findViewById(R.id.create_list_view);
         Button add_topic_btn = (Button) findViewById(R.id.add_topic);
         Button save = (Button) findViewById(R.id.save);
-//        create_list_view.setAdapter(questionAdapter);
+        create_list_view.setAdapter(questionAdapter);
         form.setFormId(takeFormId());
         form.setTitle(form_name.getText().toString());
 

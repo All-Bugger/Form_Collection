@@ -15,6 +15,7 @@ import com.example.formcollection.pojo.Answer;
 import com.example.formcollection.pojo.Form;
 import com.example.formcollection.pojo.Question;
 
+import java.io.Serializable;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +67,12 @@ public class AddOptionActivity extends AppCompatActivity {
                 arrayList.add(a3);
                 arrayList.add(a4);
 
-                int i = form.getQuestions().size();
+                int i;
+                if(form.getQuestions() != null){
+                    i = form.getQuestions().size();
+                }else{
+                    i = 0;
+                }
                 Question q = new Question();
                 q.setQuestionId(String.valueOf(i + 1));
                 q.setQuestionContent(topic_name.getText().toString());
@@ -74,7 +80,12 @@ public class AddOptionActivity extends AppCompatActivity {
                 q.setQuestionState(0);
                 q.setAnswers(arrayList);
 
-                ArrayList<Question> questions = form.getQuestions();
+                ArrayList<Question> questions = new ArrayList<>();
+                if(form.getQuestions() != null){
+                    questions = form.getQuestions();
+                }else{
+                    questions = new ArrayList<>();
+                }
                 questions.add(q);
                 form.setQuestions(questions);
 

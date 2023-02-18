@@ -14,11 +14,16 @@ public class Form implements Parcelable
     //问卷主题
     private String title;
     //题目
-    private ArrayList<Question> questions;
+    private ArrayList<Question> questions = new ArrayList<>();
 
     protected Form(Parcel in) {
         FormId = in.readString();
         title = in.readString();
+        in.readList(questions,Question.class.getClassLoader());
+//        in.readTypedList(questions,Question.CREATOR);
+        getClass().getClassLoader();
+        Thread.currentThread().getContextClassLoader();
+        Question.class.getClassLoader();
     }
 
     public static final Creator<Form> CREATOR = new Creator<Form>() {
@@ -76,5 +81,7 @@ public class Form implements Parcelable
         parcel.writeString(FormId);
         parcel.writeString(title);
         parcel.writeList(questions);
+        parcel.writeList(questions);
+        parcel.writeTypedList(questions);
     }
 }

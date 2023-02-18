@@ -1,8 +1,11 @@
 package com.example.formcollection.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class Question {
+public class Question implements Parcelable {
     //题目id
     private String questionId;
     //类型（单选|多选）
@@ -10,9 +13,34 @@ public class Question {
     //题目
     private String questionContent;
     //选项
-    private ArrayList<Answer> answers;
+    private ArrayList<Answer> answers = new ArrayList<>();
     //是否回答
     private int questionState;
+
+    protected Question(Parcel in) {
+        questionId = in.readString();
+        type = in.readString();
+        questionContent = in.readString();
+        questionState = in.readInt();
+
+        in.readList(answers,Answer.class.getClassLoader());
+        in.readTypedList(answers,Answer.CREATOR);
+        getClass().getClassLoader();
+        Thread.currentThread().getContextClassLoader();
+        Answer.class.getClassLoader();
+    }
+
+    public static final Creator<Question> CREATOR = new Creator<Question>() {
+        @Override
+        public Question createFromParcel(Parcel in) {
+            return new Question(in);
+        }
+
+        @Override
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+    };
 
     public String getQuestionId() {
         return questionId;
@@ -63,5 +91,20 @@ public class Question {
     }
 
     public Question() {
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(questionId);
+        parcel.writeString(type);
+        parcel.writeString(questionContent);
+        parcel.writeInt(questionState);
+        parcel.writeList(answers);
+        parcel.writeTypedList(answers);
     }
 }
