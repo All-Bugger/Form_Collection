@@ -2,7 +2,6 @@ package com.example.formcollection;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
@@ -33,14 +32,14 @@ public class FillFormActivity extends AppCompatActivity {
     private ArrayList<Question> que_list = new ArrayList<>();
     private LayoutInflater inflater;
     private ArrayList<View> ans_view_list = new ArrayList<>();
+    private final int[] checkId = {R.id.check1,R.id.check2,R.id.check3,R.id.check4};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fill_form);
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        form = (Form) savedInstanceState.getSerializable("form");
-        initData();
+        form = getIntent().getParcelableExtra("form");
         initView();
     }
 
@@ -111,7 +110,7 @@ public class FillFormActivity extends AppCompatActivity {
                 for (int j = 0; j < ans_list.size(); j++) {
                     CheckBox checkBox = new CheckBox(this);
                     checkBox.setText(ans_list.get(j).getAnswerContent());
-                    setCheckBoxId(checkBox, j);
+                    checkBox.setId(checkId[j]);
                     layout_in_ans.addView(checkBox);
                     checkBox.setOnClickListener(new answerItemOnClickListener(i));
                 }
@@ -127,50 +126,12 @@ public class FillFormActivity extends AppCompatActivity {
 
     }
 
-    //设置多选按钮ID
-    private void setCheckBoxId(CheckBox checkBox, int j) {
-        switch (j) {
-            case 0:
-                checkBox.setId(R.id.check1);
-                break;
-            case 1:
-                checkBox.setId(R.id.check2);
-                break;
-            case 2:
-                checkBox.setId(R.id.check3);
-                break;
-            case 3:
-                checkBox.setId(R.id.check4);
-                break;
-            default:
-                break;
-        }
-    }
-
     //多选按钮是否选择
     private boolean isChecked(int i) {
         CheckBox checkBox;
         for (int j = 0; j < que_list.get(i).getAnswers().size(); j++) {
-            switch (j) {
-                case 0:
-                    checkBox = ans_view_list.get(i).findViewById(R.id.check1);
-                    if (checkBox.isChecked()) return true;
-                    break;
-                case 1:
-                    checkBox = ans_view_list.get(i).findViewById(R.id.check2);
-                    if (checkBox.isChecked()) return true;
-                    break;
-                case 2:
-                    checkBox = ans_view_list.get(i).findViewById(R.id.check3);
-                    if (checkBox.isChecked()) return true;
-                    break;
-                case 3:
-                    checkBox = ans_view_list.get(i).findViewById(R.id.check4);
-                    if (checkBox.isChecked()) return true;
-                    break;
-                default:
-                    break;
-            }
+            checkBox = ans_view_list.get(i).findViewById(checkId[j]);
+            if(checkBox.isChecked()) return true;
         }
         return false;
     }
@@ -198,8 +159,6 @@ public class FillFormActivity extends AppCompatActivity {
         }
     }
 
-    Form finalForm1 = form;
-
     //提交按钮点击事件
     class submitButtonOnClickListener implements View.OnClickListener {
 
@@ -216,27 +175,31 @@ public class FillFormActivity extends AppCompatActivity {
             if (isDone) {
                 try {
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("name", finalForm1.getTitle());
-                    jsonObject.put("id", finalForm1.getFormId());
+                    jsonObject.put("name", form.getTitle());
+                    jsonObject.put("id", form.getFormId());
                     jsonObject.put("fill_id", takeFormId());
                     jsonObject.put("type", 0);
                     JSONArray FORMS = new JSONArray();
 
-                    List<Question> questions = finalForm1.getQuestions();
-                    for (int i = 0; i < questions.size(); i++) {
+                    for (int i = 0; i < que_list.size(); i++) {
                         JSONObject FORM = new JSONObject();
-                        FORM.put("name", questions.get(i).getQuestionContent());
-                        FORM.put("id", questions.get(i).getQuestionId());
-                        ArrayList<Answer> answers = questions.get(i).getAnswers();
+                        FORM.put("name", que_list.get(i).getQuestionContent());
+                        FORM.put("id", que_list.get(i).getQuestionId());
+                        ArrayList<Answer> answers = que_list.get(i).getAnswers();
                         JSONArray jsonArray = new JSONArray();
 
                         //答案输出
-//                        jsonArray.add(answers.get(0).getAnswerContent());
-//                        jsonArray.add(answers.get(1).getAnswerContent());
-//                        jsonArray.add(answers.get(2).getAnswerContent());
-//                        jsonArray.add(answers.get(3).getAnswerContent());
-
-
+                        if(que_list.get(i).getType().equals("单选")){
+                            RadioGroup radioGroup = ans_view_list.get(i).findViewById(R.id.radio_group);
+                            RadioButton radioButton = ans_view_list.get(i).findViewById(radioGroup.getCheckedRadioButtonId());
+                            jsonArray.add(radioButton.getText());
+                        } else {
+                            CheckBox checkBox;
+                            for(int j = 0; j < que_list.get(i).getAnswers().size(); j++){
+                                checkBox = ans_view_list.get(i).findViewById(checkId[j]);
+                                if(checkBox.isChecked()) jsonArray.add(checkBox.getText());
+                            }
+                        }
                         FORM.put("answer", jsonArray);
                         FORMS.add(FORM);
                     }
@@ -251,7 +214,7 @@ public class FillFormActivity extends AppCompatActivity {
                     }
 
                     //json文件创建
-                    String fileName = "/answer/" + finalForm1.getFormId() + ".json";
+                    String fileName = "/answer/" + form.getFormId() + ".json";
                     File file = new File(
                             getApplicationContext().getFilesDir().getAbsolutePath() + fileName);
                     if (!file.exists()) {
