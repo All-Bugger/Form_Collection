@@ -3,6 +3,7 @@ package com.example.formcollection;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.JsonReader;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -13,7 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.formcollection.pojo.Form;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +48,30 @@ public class MyFormActivity extends AppCompatActivity {
     }
 
     private void loadFormList(){
-        String filePath = Environment.getExternalStorageDirectory().toString()+"";
+        try {
+            Form form = new Form();
+            File file = new File(
+                    getApplicationContext().getFilesDir().getAbsolutePath()+ "/form/form.json");
+            if (!file.exists()) file.createNewFile();
+            FileInputStream fileInputStream = new FileInputStream(file);
+            JsonReader jsonReader = new JsonReader(new InputStreamReader(fileInputStream, StandardCharsets.UTF_8));
+            jsonReader.beginObject();
+            while (jsonReader.hasNext()){
+                if(jsonReader.nextName().equals("name")){
+                    form.setTitle(jsonReader.nextString());
+                }
+                if(jsonReader.nextName().equals("id")){
+                    form.setFormId(jsonReader.nextString());
+                }
+                if(jsonReader.nextName().equals("content")){
+
+                }
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

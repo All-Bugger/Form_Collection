@@ -1,7 +1,7 @@
 {
   "name": "表单名称",
   "id": "表单id",
-  "context": [
+  "content": [
     {
       "name": "题目",
       "id": "题目序号",

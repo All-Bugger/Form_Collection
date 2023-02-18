@@ -140,7 +140,7 @@ public class CreateFormActivity extends AppCompatActivity {
                         FORM.put("options",jsonArray);
                         FORMS.add(FORM);
                     }
-                    jsonObject.put("context",FORMS);
+                    jsonObject.put("content",FORMS);
 
                     //json文件创建
                     fileName = "/form/" + finalForm1.getFormId() + ".json";
