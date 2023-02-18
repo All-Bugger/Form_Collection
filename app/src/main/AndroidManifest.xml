@@ -25,6 +25,10 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity android:name=".CreateFormActivity"/>
+        <activity android:name=".MyFormActivity"/>
+        <activity android:name=".FillFormActivity"/>
+        <activity android:name=".AddOptionActivity"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

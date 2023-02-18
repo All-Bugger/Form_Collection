@@ -21,6 +21,8 @@ public class CreateFormActivity extends AppCompatActivity {
 
     private Form form = new Form();
 
+    private List<Question> questionList = new ArrayList<>();
+
     public Form getForm() {
         return form;
     }
@@ -36,6 +38,16 @@ public class CreateFormActivity extends AppCompatActivity {
         return String.valueOf(id_int);
     }
 
+    public void init() {
+        Question question = new Question();
+        question.setQuestionId("1");
+        question.setQuestionState(0);
+        question.setType("1");
+        question.setQuestionContent("请创建题目");
+        question.setAnswers(new ArrayList<>());
+        questionList.add(question);
+    }
+
     public void createJSON() {
 
     }
@@ -49,21 +61,29 @@ public class CreateFormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_form);
         Form form = (Form) getIntent().getParcelableExtra("form");
-        QuestionAdapter questionAdapter = new QuestionAdapter(CreateFormActivity.this, R.layout.create_form_list, form.getQuestions());
+        QuestionAdapter questionAdapter;
+        if (form == null) {
+            init();
+            form = new Form();
+            questionAdapter = new QuestionAdapter(CreateFormActivity.this, R.layout.create_form_list, questionList);
+        } else {
+            questionAdapter = new QuestionAdapter(CreateFormActivity.this, R.layout.create_form_list, form.getQuestions());
+        }
         EditText form_name = (EditText) findViewById(R.id.form_name);
         ListView create_list_view = (ListView) findViewById(R.id.create_list_view);
         Button add_topic_btn = (Button) findViewById(R.id.add_topic);
         Button save = (Button) findViewById(R.id.save);
-        create_list_view.setAdapter(questionAdapter);
+//        create_list_view.setAdapter(questionAdapter);
         form.setFormId(takeFormId());
         form.setTitle(form_name.toString());
 
         //点击跳转添加题目界面
+        Form finalForm = form;
         add_topic_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CreateFormActivity.this, AppCompatActivity.class);
-                intent.putExtra("form", form);//向添加界面传递form参数，来确保返回页面时能实现动态更新
+                Intent intent = new Intent(CreateFormActivity.this, AddOptionActivity.class);
+                intent.putExtra("form", finalForm);//向添加界面传递form参数，来确保返回页面时能实现动态更新
                 startActivity(intent);
             }
         });
