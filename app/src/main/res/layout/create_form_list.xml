@@ -20,32 +20,39 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/topic_name"
+            android:id="@+id/topic_name_list"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_vertical" />
+            android:gravity="center_vertical"
+            android:textSize="18sp" />
     </LinearLayout>
 
-    <RadioButton
-        android:id="@+id/option_1"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"/>
-    <RadioButton
-        android:id="@+id/option_2"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"/>
-    <RadioButton
-        android:id="@+id/option_3"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"/>
-    <RadioButton
-        android:id="@+id/option_4"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"/>
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/option_1"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"/>
+        <RadioButton
+            android:id="@+id/option_2"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"/>
+        <RadioButton
+            android:id="@+id/option_3"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"/>
+        <RadioButton
+            android:id="@+id/option_4"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"/>
+    </RadioGroup>
+
+
 
 </LinearLayout>
