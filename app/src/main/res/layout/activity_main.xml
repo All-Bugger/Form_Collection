@@ -7,34 +7,25 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/create_form"
-        android:layout_marginTop="40dp"
-        android:layout_width="250dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center_horizontal"
-        android:textSize="20sp"
-        android:background="@drawable/round_button"
-        android:text="@string/create_form" />
 
     <Button
-        android:id="@+id/fill_form"
-        android:layout_marginTop="40dp"
+        android:id="@+id/create_form"
         android:layout_width="250dp"
         android:layout_height="80dp"
         android:layout_gravity="center_horizontal"
-        android:textSize="20sp"
+        android:layout_marginTop="200dp"
         android:background="@drawable/round_button"
-        android:text="@string/fill_form" />
+        android:text="@string/create_form"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/myForm"
-        android:layout_marginTop="40dp"
         android:layout_width="250dp"
         android:layout_height="80dp"
         android:layout_gravity="center_horizontal"
-        android:textSize="20sp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/round_button"
-        android:text="@string/myForm" />
+        android:text="@string/myForm"
+        android:textSize="20sp" />
 
 </LinearLayout>

@@ -14,20 +14,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button createFormBtn = (Button)findViewById(R.id.create_form);
-        Button fillFormBtn = (Button) findViewById(R.id.fill_form);
         Button myFormBtn = (Button) findViewById(R.id.myForm);
 
         createFormBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CreateFormActivity.class);
-                startActivity(intent);
-            }
-        });
-        fillFormBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,FillFormActivity.class);
                 startActivity(intent);
             }
         });
