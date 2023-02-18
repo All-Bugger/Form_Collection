@@ -142,6 +142,7 @@ public class CreateFormActivity extends AppCompatActivity {
                     }
                     jsonObject.put("context",FORMS);
 
+                    //json文件创建
                     fileName = "/form/" + finalForm1.getFormId() + ".json";
                     File file = new File(
                             getApplicationContext().getFilesDir().getAbsolutePath()+ fileName);
@@ -150,6 +151,8 @@ public class CreateFormActivity extends AppCompatActivity {
                     }
                     FileOutputStream outputStream = new FileOutputStream(file);
                     outputStream.write(jsonObject.toString().getBytes(StandardCharsets.UTF_8));
+
+                    //弹窗
                     AlertDialog alertDialog1 = new AlertDialog.Builder(CreateFormActivity.this)
                             .setMessage("表格id为：" + finalForm1.getFormId() )//内容
                             .create();
